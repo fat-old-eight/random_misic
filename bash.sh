@@ -1,8 +1,4 @@
 #!/usr/bin/bash
-strindex() { 
-  x="${1%%$2*}"
-  [[ $x = $1 ]] && echo -1 || echo ${#x}
-}
 cd /media/fatoldeight/G01/Vocaloid
 rm out.txt
 a=$(ls 2>/dev/null|sort -R)
@@ -25,7 +21,13 @@ do
   # echo $len
   p=${in:len+1:$((${#in}))}
   cnt=$((cnt+1))
+  cnt1=$cnt
+  if [ $cnt -le 9 ];then
+    cnt1="00$cnt"
+  elif [ $cnt -le 99 ];then
+    cnt1="0$cnt"
+  fi
   echo "$cnt $p" >>"out.txt"
-  mv $in "$cnt-$p"
+  mv $in "$cnt1-$p"
 done
 IFS=$IFS_BACKUP
